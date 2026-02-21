@@ -29,7 +29,6 @@ const Navbar = () => {
     };
 
     checkBackendConnection();
-    // Check every 30 seconds
     const interval = setInterval(checkBackendConnection, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -86,20 +85,20 @@ const Navbar = () => {
                 </Link>
               ))}
               
-              {/* Admin Section */}
+              {/* Admin Section - FIXED: Messages link is now more visible */}
               {isAuthenticated ? (
-                <div className="flex items-center space-x-4">
-                  {/* Messages Link - Only visible when authenticated */}
+                <div className="flex items-center space-x-6">
+                  {/* Messages Link - Made more prominent */}
                   <Link
                     to="/admin/messages"
-                    className={`flex items-center ${
+                    className={`flex items-center px-3 py-1.5 rounded-lg ${
                       location.pathname === '/admin/messages'
-                        ? 'text-blue-400'
-                        : 'text-gray-300 hover:text-white'
-                    } transition-colors duration-200`}
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white'
+                    } transition-all duration-200`}
                   >
-                    <Mail size={18} className="mr-1" />
-                    <span>Messages</span>
+                    <Mail size={18} className="mr-2" />
+                    <span className="font-medium">Messages</span>
                   </Link>
                   
                   {/* User info */}
@@ -145,7 +144,6 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-dark-200 border-t border-gray-800">
             <div className="px-4 py-3 space-y-2">
-              {/* Navigation Links */}
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
@@ -165,25 +163,25 @@ const Navbar = () => {
               <div className="border-t border-gray-800 pt-3 mt-3">
                 {isAuthenticated ? (
                   <div className="space-y-2">
+                    {/* Messages link - Mobile */}
+                    <Link
+                      to="/admin/messages"
+                      className={`flex items-center px-3 py-2 rounded-lg ${
+                        location.pathname === '/admin/messages'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white'
+                      } transition-all duration-200`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Mail size={18} className="mr-2" />
+                      <span className="font-medium">View Messages</span>
+                    </Link>
+                    
                     {/* User info */}
                     <div className="flex items-center px-3 py-2 text-sm text-gray-400">
                       <Shield size={16} className="mr-2 text-green-400" />
                       Logged in as {user?.name || 'Admin'}
                     </div>
-                    
-                    {/* Messages link */}
-                    <Link
-                      to="/admin/messages"
-                      className={`flex items-center px-3 py-2 rounded-lg ${
-                        location.pathname === '/admin/messages'
-                          ? 'text-blue-400 bg-dark-300'
-                          : 'text-gray-300 hover:text-white hover:bg-dark-300'
-                      } transition-colors duration-200`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Mail size={18} className="mr-2" />
-                      View Messages
-                    </Link>
                     
                     {/* Logout button */}
                     <button
@@ -220,7 +218,7 @@ const Navbar = () => {
                   }`} />
                   <span className="ml-2 text-xs text-gray-400">
                     {backendStatus === 'connected' ? 'Backend Connected' : 
-                     backendStatus === 'checking' ? 'Connecting to backend...' : 'Backend Offline'}
+                     backendStatus === 'checking' ? 'Connecting...' : 'Backend Offline'}
                   </span>
                 </div>
               </div>
@@ -229,7 +227,6 @@ const Navbar = () => {
         )}
       </nav>
 
-      {/* Login Modal */}
       <AdminLogin 
         isOpen={showLoginModal} 
         onClose={() => setShowLoginModal(false)} 
