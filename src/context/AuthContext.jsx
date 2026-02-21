@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react'; // Add useEffect
 
 const AuthContext = createContext(null);
 
@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = (email, password) => {
-    // Simple frontend authentication check
     if (email === VALID_CREDENTIALS.email && password === VALID_CREDENTIALS.password) {
       const userData = {
         email: VALID_CREDENTIALS.email,
@@ -36,15 +35,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
   };
 
-  // Check for saved auth on initial load
-  useState(() => {
+  // Check for saved auth on initial load - FIXED with useEffect
+  useEffect(() => {
     const savedAuth = localStorage.getItem('isAuthenticated');
     const savedUser = localStorage.getItem('user');
     if (savedAuth === 'true' && savedUser) {
       setIsAuthenticated(true);
       setUser(JSON.parse(savedUser));
     }
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   const value = {
     user,

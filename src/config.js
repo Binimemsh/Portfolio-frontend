@@ -1,0 +1,1 @@
+export const API_URL = 'https://my-portfolio-backend-fll4.onrender.com/api';

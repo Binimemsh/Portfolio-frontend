@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'https://my-portfolio-backend-fll4.onrender.com/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({

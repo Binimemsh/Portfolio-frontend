@@ -62,9 +62,7 @@ const AdminLogin = ({ isOpen, onClose }) => {
             </button>
 
             <h2 className="text-2xl font-bold text-white mb-2">Admin Login</h2>
-            <p className="text-gray-400 text-sm mb-6">
-              Use demo credentials: admin@portfolio.com / admin123
-            </p>
+           
 
             {error && (
               <div className="mb-4 p-3 bg-red-900/50 border border-red-700 rounded-lg text-red-200 text-sm">
@@ -82,7 +80,7 @@ const AdminLogin = ({ isOpen, onClose }) => {
                   value={credentials.email}
                   onChange={(e) => setCredentials({...credentials, email: e.target.value})}
                   className="w-full px-4 py-2 bg-dark-300 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  placeholder="admin@portfolio.com"
+                  placeholder="email@example.com"
                   required
                 />
               </div>
